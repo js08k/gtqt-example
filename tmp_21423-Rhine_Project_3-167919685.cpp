@@ -1,5 +1,16 @@
 #include <iostream>
 #include <fstream>
+
+/* Two things, asside from what you asked, I noticed the assignment said to save
+ * your data in a binary format, currently you are not doing that. Not sure how
+ * much of a stickler they are on that...
+ *
+ * Second thing (not that you would loose points for it) you do a lot of code
+ * multiple times, especially with the prompting stuff. You might want to conseder
+ * making a function that does some of this work for you, could save you time in
+ * long run. However, if it isn't super clear, I wouldn't worry bout that too much
+ */
+
 using namespace std;
 
 struct book{
@@ -12,6 +23,15 @@ struct book{
 
 //Number of Books in Library
 //Because of being sick, I missed the classes relevant to basically this entire code. lol I have no real idea of how to compose a binary search.
+
+/* A binary search is basically a recursive search that looks at the most center
+ * item, comparing it to the search criteria. If the search is greater than, it
+ * creates another search field that is "greater than" the value it looked at
+ * redoing the search. Same thing for less than. It basically does this
+ * recursively until it lands on its target. The key thing to keep in mind with
+ * binary search, the keys HAVE to be ordered for it to ever work. In this case,
+ * the key would be your book title if you are searching titles; Author if you
+ * are searching authors; subjects if you are searching subjects */
 void library(char title[50], char author_name[50], int& no_of_books)
 {
     ifstream fin;
@@ -224,6 +244,17 @@ void book_search(char title[50], char author_name[50], string& subject)
 
 //Delete Books
 //I also missed the bit about removing parts of an array. I'm deleting books from the library and tallying a count after the deletion.
+
+/* YIKES! this is not an easy thing to do with an array at all! This is what
+ * linked lists were created for. BUT, there is a way to do it, it is just very
+ * tedious and kinda messy.
+ *
+ * As you delete an item (assume the item is in the center) you copy all items
+ * into the previous items position (starting at the item after the one being
+ * deleted). You need to be careful with your indexes however, because you
+ * are changing your indexes as you move things. Likely if you have to remove
+ * multiple things at one iterration, remove things near the end first (with
+ * highests indexes first). */
 void delete_books(char title[50], char author_name[50], string& subject)
 {
     book books[100];
@@ -376,7 +407,7 @@ void modify_books(char title[50], char author_name[50], string& subject)
                 fout.write(books[i].author_name, 50);
                 fout<<books[i].subject;
                 fout<<books[i].year;
-                
+
             }
         }
     }
@@ -462,3 +493,4 @@ int main ()
         return 0;
     }
 }
+
